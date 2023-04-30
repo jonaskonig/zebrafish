@@ -33,7 +33,7 @@ class Chromatophores:
 class Lattice:
 
     def __init__(self, size: list, stem_cell_density, elastic_energy_weight: float, adhesion_coe_matrix: list,
-                 mean_cell_life: int, lattice_groth_interval: int, runtime: int, y_growth_factor:int|bool =False,chromatophore_birth_rate:int = 3, paper_move_method:bool = False):
+                 mean_cell_life: int, lattice_groth_interval: int, runtime: int, x_growth_factor: int | bool =False, chromatophore_birth_rate:int = 3, paper_move_method:bool = False):
         self.size = size
         # self.lattice = np.full((size[0], size[1]), None)
         self.lattice = [[None] * size[1]] * size[0]
@@ -45,7 +45,7 @@ class Lattice:
         self.lattice_groth_interval = lattice_groth_interval
         self.runtime = runtime
         self.create_start_stripes()
-        self.y_growth_factor =y_growth_factor
+        self.x_growth_factor =x_growth_factor
         self.grow_down = True
         self.grow_right = True
         self.paper_move_method = paper_move_method
@@ -578,7 +578,7 @@ class Lattice:
         for d in range(self.runtime):
             if d % self.lattice_groth_interval == 0:
                 self.grow_lattice(d/self.runtime)
-            if self.y_growth_factor and d % self.y_growth_factor == 0:
+            if self.x_growth_factor and d % self.x_growth_factor == 0:
                 self.grow_lattice_x(d/self.runtime)
             if d % self.chromatophore_birth_rate == 0:
                 self.distributeStemCells()
