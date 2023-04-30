@@ -37,7 +37,6 @@ class Lattice:
         self.size = size
         # self.lattice = np.full((size[0], size[1]), None)
         self.lattice = [[None] * size[1]] * size[0]
-        print(f"{len(self.lattice)} {len(self.lattice[0])}")
         self.stem_cell_density = stem_cell_density
         self.elastic_energy_weight = elastic_energy_weight
         self.adhesion_coe_matrix = adhesion_coe_matrix
@@ -173,7 +172,7 @@ class Lattice:
     def cell_deth_and_move(self, x, y, num):
         vs, vd = self.get_cellneigbors_vd_vs(x, y, num, self.lattice)
         if self.lattice[x][y][num].age > self.mean_cell_life and vs > vd:
-            print(f"Cell age is: {self.lattice[x][y][num].age}")
+            #print(f"Cell age is: {self.lattice[x][y][num].age}")
             if len(self.lattice[x][y]) > 1:
                 self.lattice[x][y].pop(num)
                 self.lattice[x][y][0].set_position("M")
@@ -583,14 +582,14 @@ class Lattice:
                 self.grow_lattice_x(d/self.runtime)
             if d % self.chromatophore_birth_rate == 0:
                 self.distributeStemCells()
-                print(f"D is {d}")
+                #print(f"D is {d}")
             self.age_cells()
             self.cell_rearangement()
             lattices.append(copy.deepcopy(self.lattice))
         return lattices
 
     def to_picture(self, lattice):
-        print(len(lattice))
+        #print(len(lattice))
         size = 4
         space = 4
         sizex = (size + space) * len(lattice) + space
@@ -630,7 +629,7 @@ class Lattice:
 
     def create_animated_gif(self, lattices, name= str(datetime.datetime.now())):
         frames = [self.to_picture(lattice) for lattice in lattices]
-        print(len(frames))
+        #print(len(frames))
         if not os.path.exists(name):
             os.makedirs(name)
         maxwidth , maxheight = frames[-1].size
